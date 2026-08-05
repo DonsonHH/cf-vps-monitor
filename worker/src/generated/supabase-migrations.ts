@@ -43,5 +43,11 @@ export const BUNDLED_SUPABASE_MIGRATIONS: BundledMigration[] = [
     "name": "donson_defaults",
     "checksum": "7a65b60fae81ed40491286e897f2ed9fc93b5c3462697bdc8fd5a5a08cd37d48",
     "sql": "-- Defaults for the Donson deployment. They deliberately apply only to a fresh\n-- installation or an untouched upstream default, so administrator customisations\n-- made later in the site settings are never overwritten by a database re-init.\nset local search_path = public;\n\nupdate settings\nset value = 'Azure实时监测'\nwhere key = 'site_title'\n  and value in ('', 'CF Monitor', 'CF VPS Monitor');\n\nupdate settings\nset value = 'Donsonの探针'\nwhere key = 'site_subtitle'\n  and value = '';\n\nupdate settings\nset value = 'Azure 服务器实时监测'\nwhere key = 'site_description'\n  and value in ('', '服务器监控探针');\n\ninsert into settings (key, value) values\n  ('site_title', 'Azure实时监测'),\n  ('site_subtitle', 'Donsonの探针'),\n  ('site_description', 'Azure 服务器实时监测')\non conflict (key) do nothing;\n\ninsert into settings (key, value)\nvalues ('schema_bootstrap_version', 'donson-2026-08-05-v1')\non conflict (key) do update set value = excluded.value;"
+  },
+  {
+    "version": "7_service_role_access",
+    "name": "service_role_access",
+    "checksum": "84b18ea8c457e98b8ef184166c7222d38e25291858704dcebcc15bc5722f38bd",
+    "sql": "-- The Worker authenticates to PostgREST with Supabase's service_role key.\n-- Our RPC functions are SECURITY INVOKER, so the role needs access to the\n-- application tables even though it bypasses row-level security.\nset local search_path = public;\n\ngrant usage on schema public to service_role;\ngrant select, insert, update, delete on all tables in schema public to service_role;\ngrant usage, select on all sequences in schema public to service_role;\n\n-- Keep the Worker working when a later migration creates an application table.\nalter default privileges in schema public\n  grant select, insert, update, delete on tables to service_role;\nalter default privileges in schema public\n  grant usage, select on sequences to service_role;\n\nnotify pgrst, 'reload schema';"
   }
 ];
