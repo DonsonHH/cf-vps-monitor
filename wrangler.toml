@@ -37,6 +37,7 @@ new_sqlite_classes = ["RateLimitDO"]
 
 [vars]
 SUPABASE_URL = "https://kqidorwlupkhgqvoshjr.supabase.co"
+SETUP_DIAGNOSTICS_ENABLED = "true"
 
 [assets]
 directory = "frontend/dist"
