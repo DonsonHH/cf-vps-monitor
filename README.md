@@ -3,7 +3,7 @@
 
 这是 [DonsonHH/cf-vps-monitor](https://github.com/DonsonHH/cf-vps-monitor) 的持续维护版本：一个以 **Donson Console** 为视觉与使用体验核心的 VPS / 网站可观测性面板。它使用 Cloudflare Workers 承载前端、API、实时连接和定时任务，使用 Durable Objects 协调实时状态，使用 Supabase Postgres 保存配置和历史数据，并使用 Go Agent 在服务器上采集指标。
 
-线上实例：[monitor.donson.top](https://monitor.donson.top/)。发布以本仓库的默认分支为准；请将 Cloudflare Workers Builds 连接到此仓库，而不是上游仓库。
+发布以本仓库的默认分支为准；请将 Cloudflare Workers Builds 连接到此仓库，而不是上游仓库。
 
 ## Donson 定制
 
@@ -137,6 +137,18 @@ wget -qO- 'https://raw.githubusercontent.com/DonsonHH/cf-vps-monitor/refs/heads/
 ## 上游同步与发布
 
 本仓库的发布以 GitHub 默认分支为准；Cloudflare Workers Builds 应跟踪该默认分支。上游项目的更新可在 GitHub 中通过 **Sync fork** 同步，或由维护者将上游变更合并到 Donson 分支后再发布。不要将 Cloudflare 直接连接到 `kadidalax/cf-vps-monitor`，否则会覆盖 Donson 的定制。
+
+推荐由维护者在本地更新，而不是在 GitHub 直接点 **Sync fork**。这样可以保留 Donson 的界面与部署调整，并在发布前验证：
+
+```bash
+git fetch upstream
+git switch donson/identity-dashboard
+git merge upstream/main
+npm run build
+git push origin donson/identity-dashboard
+```
+
+如有冲突，先处理冲突并完成验证，再执行最后的 `git push`。推送到默认分支后，Cloudflare Workers Builds 会按其现有配置自动构建；若不希望自动上线，可将该构建设为预览分支或改为手动部署。
 
 ### 如果你还维护自己的 Fork
 
