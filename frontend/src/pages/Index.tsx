@@ -456,6 +456,22 @@ export default function Index() {
 
   return (
     <div className="monitor-dashboard-page">
+      <section className="donson-overview-block">
+        <div className="donson-overview-copy">
+          <span className="donson-eyebrow">DONSON CONSOLE</span>
+          <h1>{monitorMode === 'servers' ? '基础设施状态，一眼掌握' : '网站可用性，持续在线'}</h1>
+          <p>
+            {monitorMode === 'servers'
+              ? '实时汇总节点状态、资源使用和网络信号。'
+              : '以连续心跳记录关键服务的每一次响应。'}
+          </p>
+        </div>
+        <div className="donson-overview-meta" aria-label="监控概览">
+          <span className="donson-live-pill"><i aria-hidden="true" /> 实时数据流</span>
+          <span>{monitorMode === 'servers' ? `${liveMap.online.length} / ${displayClients.length || 0} 节点在线` : `${websites.length} 个网站监控`}</span>
+        </div>
+      </section>
+
       {monitorMode === 'servers' && (
         <section className="monitor-dashboard-hero monitor-dashboard-compact">
           <div className="monitor-stat-grid">

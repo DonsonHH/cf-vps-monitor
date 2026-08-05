@@ -116,10 +116,18 @@ export default function WebsiteMonitorList({
   }, [monitors]);
 
   return (
-    <section className="kuma-monitor-list">
+    <section className="kuma-monitor-list donson-content-block website-monitor-block">
+      <header className="donson-block-heading">
+        <div>
+          <span className="donson-eyebrow">SERVICE PULSE</span>
+          <h2>网站监控</h2>
+          <p>用心跳时间线保留关键服务的可用性记录。</p>
+        </div>
+        <span className="donson-block-count">{summary.total} CHECKS</span>
+      </header>
       <div className="kuma-monitor-summary">
         <Box className="kuma-monitor-title-line">
-          <Text size="4" weight="bold">网站监控</Text>
+          <Text size="3" weight="bold">当前状态</Text>
           <Text size="2" color="gray">
             {summary.total === 0 ? (loading ? '加载中' : '暂无网站') : `${summary.up} 正常 / ${summary.down} 失效 / ${summary.total} 总数`}
           </Text>

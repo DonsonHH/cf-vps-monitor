@@ -83,6 +83,15 @@ export default function NodeDisplay({
   ).length;
   return (
     <Box className="node-display-shell" style={{ width: '100%' }}>
+      <section className="donson-content-block node-control-block">
+        <header className="donson-block-heading">
+          <div>
+            <span className="donson-eyebrow">INFRASTRUCTURE</span>
+            <h2>服务器节点</h2>
+            <p>按状态、分组或名称定位正在运行的实例。</p>
+          </div>
+          <span className="donson-block-count">{nodes.length} NODES</span>
+        </header>
       <Box className="node-filter-panel">
         <Flex className="node-filter-toolbar" direction="column" gap="2">
           <Flex className="node-filter-top-row" align="center" gap="2">
@@ -194,6 +203,7 @@ export default function NodeDisplay({
             : <NodeTable nodes={filteredNodes} liveData={liveData} includeHidden={includeHidden} />}
         </>
       )}
+      </section>
     </Box>
   );
 }

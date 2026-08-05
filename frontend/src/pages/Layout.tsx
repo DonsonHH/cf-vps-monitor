@@ -133,7 +133,10 @@ export default function Layout() {
               <span className="nav-logo-mark" aria-hidden="true">
                 <img src={siteLogoUrl || "/app-icon.png"} alt="" />
               </span>
-              <span className="nav-brand-title">{siteTitle}</span>
+              <span className="nav-brand-copy">
+                <span className="nav-brand-eyebrow">DONSON / OBSERVABILITY</span>
+                <span className="nav-brand-title">{siteTitle}</span>
+              </span>
             </Link>
             {siteSubtitle && (
               <div className="nav-brand-subtitle">
@@ -150,6 +153,9 @@ export default function Layout() {
           </div>
 
           <div className="nav-actions">
+            <span className="nav-live-signal" aria-label="实时监控服务运行中">
+              <span aria-hidden="true" /> LIVE
+            </span>
             <DonsonClock />
             <IconButton
               className="nav-icon-button"
@@ -203,7 +209,7 @@ export default function Layout() {
 
       <footer className="footer">
         <Text size="2" color="gray" className="footer-powered">
-          <span>Powered by</span>
+          <span>Donson Monitor · Powered by</span>
           <a href={githubUrl} target="_blank" rel="noreferrer" aria-label="GitHub">
             <Github size={16} />
           </a>
