@@ -11,6 +11,7 @@ import { fetchPublicSettings } from "../utils/publicSettings";
 import { subscribePublicDataUpdated } from "../utils/publicDataEvents";
 import { subscribeThemeUpdated } from "../utils/themeEvents";
 import { refreshActiveThemeStylesheet } from "../utils/activeThemeStylesheet";
+import DonsonClock from "../components/DonsonClock";
 
 function safeBackgroundUrl(value: unknown) {
   const raw = typeof value === "string" ? value.trim() : "";
@@ -149,6 +150,7 @@ export default function Layout() {
           </div>
 
           <div className="nav-actions">
+            <DonsonClock />
             <IconButton
               className="nav-icon-button"
               variant="soft"

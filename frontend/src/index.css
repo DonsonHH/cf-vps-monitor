@@ -244,6 +244,25 @@ body {
   flex-shrink: 0;
 }
 
+.donson-clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 38px;
+  padding: 0 11px;
+  border: 1px solid var(--monitor-border);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--monitor-panel-strong) 88%, var(--monitor-accent-soft));
+  color: var(--monitor-muted-text);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.donson-clock svg { color: var(--monitor-accent); }
+.donson-clock strong { color: var(--gray-12); font-size: 13px; }
+
 .nav-icon-button {
   width: 38px !important;
   min-width: 38px !important;
