@@ -16,6 +16,7 @@ import { mergePublicClientPatch, normalizePublicClients } from '../utils/publicC
 import { fetchWithBootstrapRetry } from '../utils/api';
 import { getLocalStorageItem } from '../utils/browserStorage';
 import WebsiteMonitorList, { WebsiteMonitorSummary } from '../components/WebsiteMonitorList';
+import DonsonClock from '../components/DonsonClock';
 import { subscribeWebsiteMonitorsUpdated, type WebsiteMonitorsUpdateDetail } from '../utils/websiteMonitorEvents';
 import { notifyPublicDataReady, subscribePublicDataUpdated } from '../utils/publicDataEvents';
 import type { PublicDataUpdateDetail } from '../utils/publicDataEvents';
@@ -488,6 +489,7 @@ export default function Index() {
               />
             ))}
           </div>
+          <DonsonClock />
         </section>
       )}
 

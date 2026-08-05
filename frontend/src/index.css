@@ -6445,3 +6445,187 @@ html[data-monitor-theme='next'] .node-network-value strong {
   .kuma-monitor-items { padding: 8px; }
   .kuma-monitor-row { margin-bottom: 7px; }
 }
+
+/* Dedicated dashboard signals: stable card rhythm and a readable time block. */
+.monitor-stat-grid {
+  align-items: stretch;
+  grid-auto-rows: 118px;
+}
+
+.monitor-stat-card,
+.monitor-stat-card.has-inline-values,
+.monitor-stat-card.is-centered {
+  min-height: 0;
+  height: 118px;
+}
+
+.monitor-stat-card-inner {
+  height: 100%;
+  display: grid !important;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-content: start;
+  column-gap: 10px;
+}
+
+.monitor-stat-card.is-centered .monitor-stat-card-inner {
+  display: grid !important;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-content: start;
+  column-gap: 10px;
+}
+
+.monitor-stat-copy,
+.monitor-stat-card.is-centered .monitor-stat-copy {
+  min-width: 0;
+  text-align: left;
+}
+
+.monitor-stat-heading-row,
+.monitor-stat-card.is-centered .monitor-stat-heading-row,
+.monitor-stat-card.has-inline-values .monitor-stat-heading-row {
+  display: flex !important;
+  min-height: 68px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 7px;
+  text-align: left;
+}
+
+.monitor-stat-title,
+.monitor-stat-card.is-centered .monitor-stat-title {
+  display: block;
+  min-height: 17px;
+  line-height: 17px;
+}
+
+.monitor-stat-value,
+.monitor-stat-card.is-centered .monitor-stat-value {
+  display: block;
+  margin: 0;
+  font-size: 20px !important;
+  line-height: 1.1 !important;
+}
+
+.monitor-stat-inline-values {
+  min-height: 22px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.monitor-stat-card.has-inline-values .monitor-stat-detail,
+.monitor-stat-card.is-centered .monitor-stat-detail {
+  margin-top: 5px;
+}
+
+.donson-time-block {
+  width: 100%;
+  min-height: 132px;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 22px;
+  border: 1px solid color-mix(in srgb, var(--monitor-accent) 28%, var(--monitor-border));
+  border-radius: 14px;
+  background: linear-gradient(110deg, color-mix(in srgb, var(--monitor-panel) 94%, var(--monitor-accent-soft)), var(--monitor-panel-strong));
+  color: var(--gray-12);
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 56%, transparent) inset;
+  font-variant-numeric: tabular-nums;
+}
+
+.donson-time-icon {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: var(--monitor-accent-soft);
+  color: var(--monitor-accent);
+}
+
+.donson-time-copy {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.donson-time-copy strong {
+  color: var(--gray-12);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 780;
+  letter-spacing: -0.075em;
+  line-height: 0.95;
+}
+
+.donson-time-date {
+  color: var(--monitor-muted-text);
+  font-size: 13px;
+}
+
+.donson-time-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  align-self: start;
+  padding: 7px 10px;
+  border: 1px solid color-mix(in srgb, var(--monitor-success) 28%, var(--monitor-border));
+  border-radius: 999px;
+  color: var(--monitor-success);
+  background: color-mix(in srgb, var(--monitor-success) 7%, transparent);
+  font-size: 12px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.donson-time-status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 15%, transparent);
+}
+
+@media (max-width: 760px) {
+  .monitor-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 122px;
+    gap: 8px;
+  }
+
+  .monitor-stat-card,
+  .monitor-stat-card.has-inline-values,
+  .monitor-stat-card.is-centered {
+    width: auto;
+    max-width: none;
+    height: 122px;
+    min-height: 0;
+  }
+
+  .monitor-stat-card-inner { grid-template-columns: 30px minmax(0, 1fr); column-gap: 8px; }
+  .monitor-stat-card.is-centered .monitor-stat-card-inner { grid-template-columns: 30px minmax(0, 1fr); column-gap: 8px; }
+  .monitor-stat-heading-row,
+  .monitor-stat-card.is-centered .monitor-stat-heading-row,
+  .monitor-stat-card.has-inline-values .monitor-stat-heading-row { min-height: 74px; gap: 6px; }
+  .monitor-stat-icon { width: 30px; height: 30px; }
+  .monitor-stat-value,
+  .monitor-stat-card.is-centered .monitor-stat-value { font-size: 17px !important; }
+  .monitor-stat-inline-values { gap: 4px; font-size: 12px; }
+
+  .donson-time-block {
+    min-height: 126px;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 12px;
+    padding: 17px;
+  }
+
+  .donson-time-icon { width: 40px; height: 40px; border-radius: 12px; }
+  .donson-time-copy strong { font-size: clamp(30px, 12vw, 42px); }
+  .donson-time-status { grid-column: 2; justify-self: start; align-self: end; padding: 5px 8px; font-size: 11px; }
+}
