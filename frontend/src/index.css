@@ -6629,3 +6629,114 @@ html[data-monitor-theme='next'] .node-network-value strong {
   .donson-time-copy strong { font-size: clamp(30px, 12vw, 42px); }
   .donson-time-status { grid-column: 2; justify-self: start; align-self: end; padding: 5px 8px; font-size: 11px; }
 }
+
+/* Compact the operational signals while keeping their reading rhythm aligned. */
+.donson-overview-side {
+  position: relative;
+  z-index: 1;
+  min-width: min(100%, 330px);
+  display: grid;
+  justify-items: end;
+  align-content: space-between;
+  gap: 10px;
+}
+
+.donson-overview-block .donson-time-block {
+  width: min(100%, 330px);
+  min-height: 0;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--monitor-panel-strong) 84%, var(--monitor-accent-soft));
+}
+
+.donson-overview-block .donson-time-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+}
+
+.donson-overview-block .donson-time-copy { gap: 3px; }
+.donson-overview-block .donson-time-copy strong { font-size: clamp(28px, 3.1vw, 38px); }
+.donson-overview-block .donson-time-date { font-size: 11px; }
+.donson-overview-block .donson-time-status { display: none; }
+
+.monitor-stat-grid {
+  grid-auto-rows: 78px;
+}
+
+.monitor-stat-card,
+.monitor-stat-card.has-inline-values,
+.monitor-stat-card.is-centered {
+  min-height: 0;
+  height: 78px;
+  padding: 10px 12px;
+}
+
+.monitor-stat-card-inner,
+.monitor-stat-card.is-centered .monitor-stat-card-inner {
+  grid-template-columns: 28px minmax(0, 1fr);
+  column-gap: 9px;
+}
+
+.monitor-stat-heading-row,
+.monitor-stat-card.is-centered .monitor-stat-heading-row,
+.monitor-stat-card.has-inline-values .monitor-stat-heading-row {
+  min-height: 0;
+  gap: 3px;
+}
+
+.monitor-stat-title,
+.monitor-stat-card.is-centered .monitor-stat-title {
+  min-height: 15px;
+  line-height: 15px;
+}
+
+.monitor-stat-value,
+.monitor-stat-card.is-centered .monitor-stat-value {
+  font-size: 18px !important;
+}
+
+.monitor-stat-inline-values {
+  min-height: 18px;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.monitor-stat-detail { display: none; }
+
+@media (max-width: 760px) {
+  .donson-overview-side {
+    min-width: 0;
+    width: 100%;
+    justify-items: start;
+  }
+
+  .donson-overview-block .donson-time-block { width: 100%; }
+  .donson-overview-block .donson-time-copy strong { font-size: clamp(28px, 12vw, 38px); }
+
+  .monitor-stat-grid { grid-auto-rows: 92px; }
+
+  .monitor-stat-card,
+  .monitor-stat-card.has-inline-values,
+  .monitor-stat-card.is-centered {
+    height: 92px;
+  }
+
+  .monitor-stat-card-inner,
+  .monitor-stat-card.is-centered .monitor-stat-card-inner {
+    grid-template-columns: 28px minmax(0, 1fr);
+  }
+
+  .monitor-stat-heading-row,
+  .monitor-stat-card.is-centered .monitor-stat-heading-row,
+  .monitor-stat-card.has-inline-values .monitor-stat-heading-row {
+    min-height: 0;
+    gap: 4px;
+  }
+
+  .monitor-stat-icon { width: 28px; height: 28px; }
+  .monitor-stat-value,
+  .monitor-stat-card.is-centered .monitor-stat-value { font-size: 16px !important; }
+}

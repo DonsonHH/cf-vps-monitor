@@ -467,9 +467,12 @@ export default function Index() {
               : '以连续心跳记录关键服务的每一次响应。'}
           </p>
         </div>
-        <div className="donson-overview-meta" aria-label="监控概览">
-          <span className="donson-live-pill"><i aria-hidden="true" /> 实时数据流</span>
-          <span>{monitorMode === 'servers' ? `${liveMap.online.length} / ${displayClients.length || 0} 节点在线` : `${websites.length} 个网站监控`}</span>
+        <div className="donson-overview-side">
+          {monitorMode === 'servers' && <DonsonClock />}
+          <div className="donson-overview-meta" aria-label="监控概览">
+            <span className="donson-live-pill"><i aria-hidden="true" /> 实时数据流</span>
+            <span>{monitorMode === 'servers' ? `${liveMap.online.length} / ${displayClients.length || 0} 节点在线` : `${websites.length} 个网站监控`}</span>
+          </div>
         </div>
       </section>
 
@@ -489,7 +492,6 @@ export default function Index() {
               />
             ))}
           </div>
-          <DonsonClock />
         </section>
       )}
 
