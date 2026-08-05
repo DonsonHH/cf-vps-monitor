@@ -199,8 +199,8 @@ export async function exportLegacyD1(config) {
       console.warn(`Skipping unavailable D1 table ${name}: ${error.message}`);
     }
   }
-  if (tables.servers.length === 0 && tables.metrics.length === 0) {
-    fail('D1 export contained no servers or metrics; check CF_ACCOUNT_ID and CF_D1_DATABASE_ID.');
+  if (tables.servers.length === 0 && tables.metrics.length === 0 && tables.monitored_sites.length === 0) {
+    fail('D1 export contained no servers, metrics, or website monitors; check CF_ACCOUNT_ID and CF_D1_DATABASE_ID.');
   }
   return {
     format: 'cf-vps-monitor-legacy-d1-export',
