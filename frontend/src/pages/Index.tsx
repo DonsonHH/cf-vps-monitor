@@ -31,7 +31,7 @@ const fallbackVisibility: StatusCardsVisibility = { ...defaultStatusCardVisibili
 
 type OfflinePosition = 'first' | 'keep' | 'last';
 
-export const nodeCardGridTemplateColumns = 'repeat(auto-fill, 320px)';
+export const nodeCardGridTemplateColumns = 'repeat(auto-fill, 340px)';
 export const mobileNodeCardGridTemplateColumns = '1fr';
 
 const nodeCardGridStyle = {

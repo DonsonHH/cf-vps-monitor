@@ -6740,3 +6740,176 @@ html[data-monitor-theme='next'] .node-network-value strong {
   .monitor-stat-value,
   .monitor-stat-card.is-centered .monitor-stat-value { font-size: 16px !important; }
 }
+
+/* A calmer, wider public dashboard: one hierarchy, fewer competing borders. */
+.main-content:has(.monitor-dashboard-page) {
+  width: 100% !important;
+}
+
+.monitor-dashboard-page {
+  width: min(100%, 1480px);
+  gap: 12px;
+}
+
+.donson-overview-block {
+  min-height: 132px;
+  padding: 26px 30px;
+  border-radius: 18px;
+}
+
+.donson-overview-copy h1 {
+  max-width: 560px;
+  font-size: clamp(26px, 2.2vw, 34px);
+}
+
+.monitor-stat-grid {
+  gap: 1px;
+  grid-auto-rows: 84px;
+  border: 1px solid var(--monitor-border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--monitor-border);
+}
+
+.monitor-stat-card,
+.monitor-stat-card.has-inline-values,
+.monitor-stat-card.is-centered {
+  height: 84px;
+  padding: 13px 15px;
+  border: 0;
+  border-radius: 0;
+  background: var(--monitor-panel);
+  box-shadow: none;
+}
+
+.monitor-stat-card:hover {
+  box-shadow: inset 0 2px 0 color-mix(in srgb, var(--monitor-accent) 60%, transparent);
+  transform: none;
+}
+
+.monitor-stat-card-inner,
+.monitor-stat-card.is-centered .monitor-stat-card-inner {
+  grid-template-columns: 30px minmax(0, 1fr);
+  column-gap: 11px;
+}
+
+.monitor-stat-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+}
+
+.monitor-stat-title,
+.monitor-stat-card.is-centered .monitor-stat-title {
+  font-size: 12px !important;
+  color: var(--monitor-muted-text);
+}
+
+.monitor-stat-value,
+.monitor-stat-card.is-centered .monitor-stat-value {
+  font-size: 20px !important;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.monitor-stat-inline-values {
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.node-control-block {
+  border-radius: 18px;
+}
+
+.node-control-block .donson-block-heading {
+  min-height: 64px;
+  align-items: center;
+  padding: 14px 20px;
+}
+
+.node-control-block .donson-block-heading > div {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+
+.node-control-block .donson-eyebrow { display: none; }
+.node-control-block .donson-block-heading h2 { margin: 0; font-size: 18px; white-space: nowrap; }
+.node-control-block .donson-block-heading p { margin: 0; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.node-filter-panel {
+  margin: 8px 12px 10px;
+  padding: 7px;
+  border-radius: 10px;
+  border-color: color-mix(in srgb, var(--monitor-border) 72%, transparent);
+  background: color-mix(in srgb, var(--monitor-panel-strong) 92%, var(--monitor-accent-soft));
+}
+
+.node-card-grid {
+  gap: 12px;
+  padding: 0 12px 14px;
+  justify-content: start;
+}
+
+.node-card-grid > .node-card { width: 340px; }
+
+.node-card {
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--monitor-panel) 96%, var(--monitor-accent-soft));
+  box-shadow: 0 8px 20px rgba(3, 10, 24, 0.12);
+}
+
+.node-card .rt-CardInner { padding: 10px !important; }
+.node-card-body { gap: 8px !important; }
+.node-card-header { min-height: 45px; }
+
+.node-card-system-line,
+.node-metric-tile,
+.node-network-panel {
+  border-color: color-mix(in srgb, var(--monitor-border) 58%, transparent);
+  background: color-mix(in srgb, var(--monitor-panel-strong) 62%, transparent);
+}
+
+.node-metric-grid { gap: 6px; }
+.node-metric-tile { padding: 7px; }
+.node-metric-label { font-size: 11px !important; }
+.node-metric-value { font-size: 13px !important; }
+.node-metric-detail { font-size: 10px !important; }
+
+.node-network-panel { padding: 7px; }
+.node-network-summary-row { min-height: 30px; }
+
+@media (max-width: 760px) {
+  .monitor-dashboard-page { padding-inline: 10px; }
+  .donson-overview-block { padding: 20px; border-radius: 16px; }
+
+  .monitor-stat-grid {
+    grid-auto-rows: 88px;
+    gap: 1px;
+  }
+
+  .monitor-stat-card,
+  .monitor-stat-card.has-inline-values,
+  .monitor-stat-card.is-centered {
+    height: 88px;
+    padding: 12px 10px;
+  }
+
+  .monitor-stat-card-inner,
+  .monitor-stat-card.is-centered .monitor-stat-card-inner {
+    grid-template-columns: 27px minmax(0, 1fr);
+    column-gap: 8px;
+  }
+
+  .monitor-stat-value,
+  .monitor-stat-card.is-centered .monitor-stat-value { font-size: 18px !important; }
+  .monitor-stat-inline-values { gap: 4px; font-size: 12px; }
+
+  .node-control-block .donson-block-heading { padding: 14px 16px; }
+  .node-control-block .donson-block-heading p { display: none; }
+  .node-filter-panel { margin: 8px; }
+  .node-card-grid { padding: 0 8px 10px; gap: 9px; }
+  .node-card-grid > .node-card { width: 100%; }
+}
