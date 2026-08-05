@@ -1,7 +1,18 @@
-![Stars](https://img.shields.io/github/stars/kadidalax/cf-vps-monitor?style=for-the-badge&logo=github&label=Stars&color=ffb000) ![Forks](https://img.shields.io/github/forks/kadidalax/cf-vps-monitor?style=for-the-badge&logo=github&label=Forks&color=2ea44f) ![License](https://img.shields.io/github/license/kadidalax/cf-vps-monitor?style=for-the-badge&color=blue)
-# CF VPS Monitor
+![Stars](https://img.shields.io/github/stars/DonsonHH/cf-vps-monitor?style=for-the-badge&logo=github&label=Stars&color=ffb000) ![Forks](https://img.shields.io/github/forks/DonsonHH/cf-vps-monitor?style=for-the-badge&logo=github&label=Forks&color=2ea44f) ![License](https://img.shields.io/github/license/DonsonHH/cf-vps-monitor?style=for-the-badge&color=blue)
+# Donson VPS Monitor
 
-CF VPS Monitor 是一个轻量 VPS 探针面板，使用 Cloudflare Workers 承载前端、API、实时连接和定时任务，使用 Durable Objects 协调实时状态，使用 Supabase Postgres 保存配置和历史数据，使用 Go Agent 在服务器上采集指标。
+这是 [DonsonHH/cf-vps-monitor](https://github.com/DonsonHH/cf-vps-monitor) 的持续维护版本：一个以 **Donson Console** 为视觉与使用体验核心的 VPS / 网站可观测性面板。它使用 Cloudflare Workers 承载前端、API、实时连接和定时任务，使用 Durable Objects 协调实时状态，使用 Supabase Postgres 保存配置和历史数据，并使用 Go Agent 在服务器上采集指标。
+
+线上实例：[monitor.donson.top](https://monitor.donson.top/)。发布以本仓库的默认分支为准；请将 Cloudflare Workers Builds 连接到此仓库，而不是上游仓库。
+
+## Donson 定制
+
+- **统一的 Donson Console 看板**：更紧凑的状态轨、节点卡片和控制工具栏；北京时间作为基础设施状态的一部分展示。
+- **账单与流量视图**：支持月结流量算法、到期信息和节点费用标注。Azure 等按出站流量计费的订阅，应在面板中使用“上传 / 出站”限额，而不是“带宽无限”。
+- **现代化数据层**：生产配置与历史数据使用 Supabase；不依赖旧版 D1 数据库。
+- **持续同步上游**：保留对 [kadidalax/cf-vps-monitor](https://github.com/kadidalax/cf-vps-monitor) 的上游关联，以便择优合并原项目的架构与功能更新。
+
+> 本仓库基于 kadidalax/cf-vps-monitor 构建，遵循原项目的 MIT License；Donson 的界面、部署与功能调整均在此仓库维护。
 
 
 ## 特性
@@ -45,18 +56,18 @@ CF VPS Monitor 是一个轻量 VPS 探针面板，使用 Cloudflare Workers 承�
 
 ## 面板部署
 
-### Fork 原仓库部署【推荐，方便更新】
+### 从本 Donson 仓库部署【推荐】
 
 
 1. 在 [Supabase](https://supabase.com/dashboard/) 创建或选择项目。
 2. 打开 Supabase 项目 **Project Overview** 页面复制 `Project URL`；打开 **Project Settings -> API Keys -> Publishable and secret API keys**，复制 **Secret keys** 中的 `default` Secret key，格式通常为 `sb_secret_...`。
-3. Fork [本仓库](https://github.com/kadidalax/cf-vps-monitor)， 创建自己的仓库。到Actions 选择**Agent Release** 点击**Run workflow** 填入创建自己的版本号，再次点击**Run workflow** 创建自己仓库的Agent 安装脚本。
+3. 在 [DonsonHH/cf-vps-monitor](https://github.com/DonsonHH/cf-vps-monitor) 的 **Actions** 中选择 **Agent Release**，点击 **Run workflow**，填入版本号后再次运行工作流，以创建本仓库对应的 Agent 安装脚本。
 4. 打开 Cloudflare Dashboard 的 **Workers & Pages**，点击 **创建应用程序**， 点击**Continue with GitHub**。
-5. 选择 GitHub 账号和刚创建的 Fork 仓库，点击**下一步**。
+5. 选择 GitHub 账号和 `DonsonHH/cf-vps-monitor`，点击**下一步**。
 6. 展开 **高级设置** 配置三个变量 `SUPABASE_URL`、`SUPABASE_SECRET_KEY`、`JWT_SECRET`。`JWT_SECRET` 必须至少 32 字节，英文/数字不少于 32 个字符。
 7. 保持默认 **构建命令** `npm run build`，将 **部署命令** 设置为 `npm run deploy`。
 8. 点击 **部署**。
-9. 如果 Cloudflare 里创建的 Worker 名称不是 `cf-vps-monitor`，需要同步修改 Fork 仓库的 `wrangler.toml` 里的 `name`，两者必须一致。
+9. 如果 Cloudflare 里创建的 Worker 名称不是 `cf-vps-monitor`，需要同步修改本仓库 `wrangler.toml` 里的 `name`，两者必须一致。
 10. 去 [Supabase](https://supabase.com/dashboard/account/tokens) 创建有效期 1 小时的 Access Token。
 11. 打开 `https://你的 Worker 域名/db-init` 初始化数据库，首次部署后访问 `/admin/login` 创建管理员。
 
@@ -64,7 +75,7 @@ CF VPS Monitor 是一个轻量 VPS 探针面板，使用 Cloudflare Workers 承�
 
 ### 直接一键部署
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/kadidalax/cf-vps-monitor)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/DonsonHH/cf-vps-monitor)
 
 1. 在 [Supabase](https://supabase.com/dashboard/) 创建或选择项目。
 2. 打开 Supabase 项目 **Project Overview** 页面复制 `Project URL`；打开 **Project Settings -> API Keys -> Publishable and secret API keys**，复制 **Secret keys** 中的 `default` Secret key，格式通常为 `sb_secret_...`。
@@ -112,7 +123,7 @@ Unix 安装命令会自动判断 Linux、Alpine/OpenRC、macOS、FreeBSD，以�
 卸载单个 Unix 实例：
 
 ```bash
-wget -qO- 'https://raw.githubusercontent.com/kadidalax/cf-vps-monitor/refs/heads/main/agent/install.sh' | sh -s -- --uninstall -i 实例ID
+wget -qO- 'https://raw.githubusercontent.com/DonsonHH/cf-vps-monitor/refs/heads/donson/identity-dashboard/agent/install.sh' | sh -s -- --uninstall -i 实例ID
 ```
 
 卸载单个 Windows 实例：
@@ -123,13 +134,13 @@ wget -qO- 'https://raw.githubusercontent.com/kadidalax/cf-vps-monitor/refs/heads
 
 只有执行 `--uninstall-all --yes` 或 `-UninstallAll -Yes` 才会清理本机全部 Agent 实例。
 
-## 后台一键同步更新
+## 上游同步与发布
 
-后台固定检测 [kadidalax/cf-vps-monitor](https://github.com/kadidalax/cf-vps-monitor) `main` 分支的最新推送编码。进入后台 `关于 -> 版本更新`，保存“你的部署仓库地址”，以后检测到推送编码不一致时会显示同步入口。
+本仓库的发布以 GitHub 默认分支为准；Cloudflare Workers Builds 应跟踪该默认分支。上游项目的更新可在 GitHub 中通过 **Sync fork** 同步，或由维护者将上游变更合并到 Donson 分支后再发布。不要将 Cloudflare 直接连接到 `kadidalax/cf-vps-monitor`，否则会覆盖 Donson 的定制。
 
-### 如果是 Fork 原仓库部署【推荐】
+### 如果你还维护自己的 Fork
 
-适合先 Fork 官方仓库，再在 Cloudflare Workers Builds 里连接这个 Fork 仓库的部署方式。
+适合 Fork 本 Donson 仓库后，再在 Cloudflare Workers Builds 里连接自己的 Fork 的部署方式。
 
 1. 在后台 `关于 -> 版本更新`：
    - `你的部署仓库地址` 填你的 Fork 仓库地址，例如 `https://github.com/用户名/cf-vps-monitor`
@@ -138,12 +149,12 @@ wget -qO- 'https://raw.githubusercontent.com/kadidalax/cf-vps-monitor/refs/heads
 3. 在 GitHub 仓库文件列表上方点击 `Sync fork` 下拉菜单。
 4. 确认上游提交后点击 `Update branch`。
 5. 如果 GitHub 提示冲突，需要按提示创建 PR 或手动解决冲突。
-6. Fork 更新产生的 push 会触发 Cloudflare Workers Builds 自动构建部署。
+6. 默认分支的 push 会触发 Cloudflare Workers Builds 自动构建部署。
 7. **更新后最好初始化一下数据库，否则可能无法使用**
 
 ### 如果是 Deploy Button 一键部署
 
-Cloudflare 一键部署自动创建的仓库不保证包含可用的更新工作流，后台不再提供这类更新入口。需要后续稳定同步更新时，建议改用上面的 Fork 原仓库部署方式。
+Cloudflare 一键部署自动创建的仓库不保证包含可用的更新工作流。需要后续稳定同步更新时，建议改用上面的 GitHub 仓库连接方式。
 
 
 ## 本地开发
@@ -191,10 +202,10 @@ cd agent && go test ./...
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=kadidalax%2Fcf-vps-monitor&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=DonsonHH%2Fcf-vps-monitor&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=kadidalax/cf-vps-monitor&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=kadidalax/cf-vps-monitor&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=kadidalax/cf-vps-monitor&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=DonsonHH/cf-vps-monitor&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=DonsonHH/cf-vps-monitor&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=DonsonHH/cf-vps-monitor&type=date&legend=top-left" />
  </picture>
 </a>
