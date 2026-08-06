@@ -93,99 +93,92 @@ export default function NodeDisplay({
           <span className="donson-block-count">{nodes.length} NODES</span>
         </header>
       <Box className="node-filter-panel">
-        <Flex className="node-filter-toolbar" direction="column" gap="2">
-          <Flex className="node-filter-top-row" align="center" gap="2">
-            <Box ref={searchRef} className="node-control-search">
-              <TextField.Root
-                placeholder="搜索服务器"
-                value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
-              >
+        <Flex className="node-filter-toolbar" align="center" gap="2">
+          <Box ref={searchRef} className="node-control-search">
+            <TextField.Root
+              placeholder="搜索服务器 · 按 / 聚焦"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            >
+              <TextField.Slot>
+                <Search size={16} />
+              </TextField.Slot>
+              {searchTerm && (
                 <TextField.Slot>
-                  <Search size={16} />
+                  <IconButton
+                    aria-label="清空搜索"
+                    variant="ghost"
+                    size="1"
+                    onClick={() => {
+                      setSearchTerm('');
+                      searchRef.current?.querySelector('input')?.focus();
+                    }}
+                  >
+                    <X size={12} />
+                  </IconButton>
                 </TextField.Slot>
-                {searchTerm && (
-                  <TextField.Slot>
-                    <IconButton
-                      aria-label="清空搜索"
-                      variant="ghost"
-                      size="1"
-                      onClick={() => {
-                        setSearchTerm('');
-                        searchRef.current?.querySelector('input')?.focus();
-                      }}
-                    >
-                      <X size={12} />
-                    </IconButton>
-                  </TextField.Slot>
-                )}
-              </TextField.Root>
+              )}
+            </TextField.Root>
+          </Box>
+
+          <Box className="node-status-filter">
+            <SegmentedControl.Root
+              value={statusFilter}
+              onValueChange={(value) => setStatusFilter(value as NodeStatusFilter)}
+              size="1"
+            >
+              <SegmentedControl.Item value="all">全部</SegmentedControl.Item>
+              <SegmentedControl.Item value="online">在线</SegmentedControl.Item>
+              <SegmentedControl.Item value="offline">离线</SegmentedControl.Item>
+            </SegmentedControl.Root>
+          </Box>
+
+          {groups.length > 0 && (
+            <Box className="node-group-filter">
+              <Select.Root value={selectedGroup} onValueChange={setSelectedGroup}>
+                <Select.Trigger aria-label="分组筛选" />
+                <Select.Content>
+                  <Select.Item value="all">全部分组</Select.Item>
+                  {groups.map((group) => (
+                    <Select.Item key={group} value={group}>
+                      {group}
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select.Root>
             </Box>
+          )}
 
-            <Box className="node-filter-spacer" aria-hidden="true" />
+          <Box className="node-filter-spacer" aria-hidden="true" />
 
-            <Flex className="node-filter-stats" align="center" gap="2">
-              <Badge size="1" variant="soft" color="blue">
-                当前结果 {filteredNodes.length}
-              </Badge>
-              <Badge size="1" variant="soft" color="green">
-                在线 {onlineVisibleCount}
-              </Badge>
-              <Badge size="1" variant="soft" color="gray">
-                总节点 {nodes.length}
-              </Badge>
-            </Flex>
+          <Flex className="node-filter-stats" align="center" gap="1">
+            <Badge size="1" variant="soft" color="green">
+              {onlineVisibleCount} 在线
+            </Badge>
+            <Badge size="1" variant="soft" color="gray">
+              {filteredNodes.length} / {nodes.length}
+            </Badge>
           </Flex>
 
-          <Flex className="node-filter-bottom-row" align="center" gap="2">
-            <Box className="node-status-filter">
-              <SegmentedControl.Root
-                value={statusFilter}
-                onValueChange={(value) => setStatusFilter(value as NodeStatusFilter)}
-                size="1"
-              >
-                <SegmentedControl.Item value="all">全部</SegmentedControl.Item>
-                <SegmentedControl.Item value="online">在线</SegmentedControl.Item>
-                <SegmentedControl.Item value="offline">离线</SegmentedControl.Item>
-              </SegmentedControl.Root>
-            </Box>
-
-            {groups.length > 0 && (
-              <Box className="node-group-filter">
-                <Select.Root value={selectedGroup} onValueChange={setSelectedGroup}>
-                  <Select.Trigger aria-label="分组筛选" />
-                  <Select.Content>
-                    <Select.Item value="all">全部分组</Select.Item>
-                    {groups.map((group) => (
-                      <Select.Item key={group} value={group}>
-                        {group}
-                      </Select.Item>
-                    ))}
-                  </Select.Content>
-                </Select.Root>
-              </Box>
-            )}
-
-            <Box className="node-filter-spacer" aria-hidden="true" />
-
-            <Flex className="node-view-toggle" align="center" gap="1">
-              <IconButton
-                aria-label="网格视图"
-                variant={viewMode === 'grid' ? 'solid' : 'soft'}
-                size="2"
-                onClick={() => toggleView('grid')}
-              >
-                <Grid3X3 size={16} />
-              </IconButton>
-              <IconButton
-                aria-label="表格视图"
-                variant={viewMode === 'table' ? 'solid' : 'soft'}
-                size="2"
-                onClick={() => toggleView('table')}
-              >
-                <Table2 size={16} />
-              </IconButton>
-            </Flex>
+          <Flex className="node-view-toggle" align="center" gap="1">
+            <IconButton
+              aria-label="网格视图"
+              title="网格视图"
+              variant={viewMode === 'grid' ? 'solid' : 'soft'}
+              size="2"
+              onClick={() => toggleView('grid')}
+            >
+              <Grid3X3 size={16} />
+            </IconButton>
+            <IconButton
+              aria-label="表格视图"
+              title="表格视图"
+              variant={viewMode === 'table' ? 'solid' : 'soft'}
+              size="2"
+              onClick={() => toggleView('table')}
+            >
+              <Table2 size={16} />
+            </IconButton>
           </Flex>
         </Flex>
       </Box>

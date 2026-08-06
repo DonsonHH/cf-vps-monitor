@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Badge, Box, Card, Flex, IconButton, Separator, Text, Tooltip } from '@radix-ui/themes';
+import { Badge, Box, Card, Flex, IconButton, Text, Tooltip } from '@radix-ui/themes';
 import { Activity, ArrowDown, ArrowUp, BarChart3, TrendingUp } from 'lucide-react';
 import Flag from './Flag';
 import PriceTags from './PriceTags';
@@ -344,8 +344,6 @@ export default function NodeCard({ client, live, online, includeHidden = false }
             </span>
             <NodeIpBadges client={client} className="node-card-title-ip-badges" />
           </Flex>
-
-          <Separator size="4" className="-mt-1" />
 
           <Flex direction="column" gap="2">
             <div className="node-card-system-line">

@@ -31,7 +31,7 @@ const fallbackVisibility: StatusCardsVisibility = { ...defaultStatusCardVisibili
 
 type OfflinePosition = 'first' | 'keep' | 'last';
 
-export const nodeCardGridTemplateColumns = 'repeat(auto-fill, 340px)';
+export const nodeCardGridTemplateColumns = 'repeat(auto-fit, minmax(360px, 1fr))';
 export const mobileNodeCardGridTemplateColumns = '1fr';
 
 const nodeCardGridStyle = {
@@ -457,28 +457,28 @@ export default function Index() {
 
   return (
     <div className="monitor-dashboard-page">
-      <section className="donson-overview-block">
-        <div className="donson-overview-copy">
-          <span className="donson-eyebrow">DONSON CONSOLE</span>
-          <h1>{monitorMode === 'servers' ? '基础设施状态，一眼掌握' : '网站可用性，持续在线'}</h1>
-          <p>
-            {monitorMode === 'servers'
-              ? '实时汇总节点状态、资源使用和网络信号。'
-              : '以连续心跳记录关键服务的每一次响应。'}
-          </p>
-        </div>
-        <div className="donson-overview-side">
-          {monitorMode === 'servers' && <DonsonClock />}
-          <div className="donson-overview-meta" aria-label="监控概览">
-            <span className="donson-live-pill"><i aria-hidden="true" /> 实时数据流</span>
-            <span>{monitorMode === 'servers' ? `${liveMap.online.length} / ${displayClients.length || 0} 节点在线` : `${websites.length} 个网站监控`}</span>
+      <section className={`donson-overview-block is-${monitorMode}`}>
+        <div className="donson-overview-top">
+          <div className="donson-overview-copy">
+            <span className="donson-eyebrow">DONSON / OBSERVABILITY</span>
+            <h1>{monitorMode === 'servers' ? '基础设施状态，一眼掌握' : '网站可用性，持续在线'}</h1>
+            <p>
+              {monitorMode === 'servers'
+                ? '节点健康度、容量与网络信号集中呈现，异常优先可见。'
+                : '以连续心跳记录关键服务的每一次响应。'}
+            </p>
+          </div>
+          <div className="donson-overview-side">
+            {monitorMode === 'servers' && <DonsonClock />}
+            <div className="donson-overview-meta" aria-label="监控概览">
+              <span className="donson-live-pill"><i aria-hidden="true" /> 实时数据流</span>
+              <span>{monitorMode === 'servers' ? `${liveMap.online.length} / ${displayClients.length || 0} 节点在线` : `${websites.length} 个网站监控`}</span>
+            </div>
           </div>
         </div>
-      </section>
 
-      {monitorMode === 'servers' && (
-        <section className="monitor-dashboard-hero monitor-dashboard-compact">
-          <div className="monitor-stat-grid">
+        {monitorMode === 'servers' && (
+          <div className="monitor-stat-grid donson-overview-stats">
             {statusCards.filter(card => fallbackVisibility[card.key]).map(card => (
               <TopCard
                 key={card.key}
@@ -492,8 +492,8 @@ export default function Index() {
               />
             ))}
           </div>
-        </section>
-      )}
+        )}
+      </section>
 
       {apiError && <ApiUnavailableNotice error={apiError} />}
 
