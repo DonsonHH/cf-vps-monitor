@@ -168,7 +168,7 @@ export default function AdminAbout() {
             <Card className="admin-about-card admin-about-card-full">
               <Flex className="admin-about-hero" align="center" gap="4">
                 <Box className="admin-about-logo">
-                  <Monitor size={40} color="white" />
+                  <img src="/assets/brand/donson-signal.svg" alt="Donson Signal" />
                 </Box>
                 <Box style={{ minWidth: 0, flex: 1 }}>
                   <Heading size="6">CF VPS Monitor</Heading>

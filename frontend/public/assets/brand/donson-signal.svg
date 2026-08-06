@@ -1,21 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
-  <title id="title">Donson Observer</title>
-  <desc id="desc">A precise D monogram with a live infrastructure core.</desc>
+  <title id="title">Donson Signal</title>
+  <desc id="desc">A restrained D monogram crossed by a live observability pulse.</desc>
   <defs>
-    <linearGradient id="donson-blue" x1="22" y1="17" x2="76" y2="76" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#a5f3fc"/>
-      <stop offset=".46" stop-color="#22d3ee"/>
-      <stop offset="1" stop-color="#0284c7"/>
+    <linearGradient id="donson-stroke" x1="27" y1="19" x2="73" y2="77" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d8fbff"/>
+      <stop offset=".48" stop-color="#67e8f9"/>
+      <stop offset="1" stop-color="#0ea5e9"/>
     </linearGradient>
-    <linearGradient id="donson-surface" x1="12" y1="10" x2="84" y2="88" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#13233a"/>
-      <stop offset="1" stop-color="#07101f"/>
+    <linearGradient id="donson-surface" x1="14" y1="10" x2="84" y2="88" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#13243a"/>
+      <stop offset="1" stop-color="#07111f"/>
     </linearGradient>
   </defs>
-  <rect x="4" y="4" width="88" height="88" rx="24" fill="url(#donson-surface)"/>
-  <rect x="5.5" y="5.5" width="85" height="85" rx="22.5" fill="none" stroke="#67e8f9" stroke-opacity=".18" stroke-width="3"/>
-  <path d="M22 17h19.5C62.2 17 77 30.9 77 48S62.2 79 41.5 79H22V17Z" fill="url(#donson-blue)"/>
-  <path d="M36 30.5h5.5c13 0 21.5 7.25 21.5 17.5S54.5 65.5 41.5 65.5H36v-35Z" fill="#0b1729"/>
-  <circle cx="58.5" cy="48" r="7" fill="#0b1729" stroke="#a5f3fc" stroke-width="2"/>
-  <circle cx="58.5" cy="48" r="3.5" fill="#86efac"/>
+  <rect x="5" y="5" width="86" height="86" rx="23" fill="url(#donson-surface)"/>
+  <rect x="5.75" y="5.75" width="84.5" height="84.5" rx="22.25" fill="none" stroke="#bae6fd" stroke-opacity=".14" stroke-width="1.5"/>
+  <path d="M29 22v52h14c17.7 0 28.5-10.4 28.5-26S60.7 22 43 22H29Z" fill="none" stroke="url(#donson-stroke)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M40 49h6l4-7 6 14 5-7h6" fill="none" stroke="#e6fbff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

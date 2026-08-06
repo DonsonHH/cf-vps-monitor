@@ -208,23 +208,29 @@ body {
 .nav-brand-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 11px;
   min-width: 0;
   color: inherit;
   text-decoration: none;
 }
 
-.nav-logo-mark {
-  width: 42px;
-  height: 42px;
+.nav-brand-link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--monitor-accent) 68%, transparent);
+  outline-offset: 5px;
   border-radius: 12px;
+}
+
+.nav-logo-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
   color: white;
   background: transparent;
-  box-shadow: 0 10px 24px color-mix(in srgb, #22d3ee 22%, transparent);
+  box-shadow: 0 8px 18px color-mix(in srgb, #22d3ee 14%, transparent);
   font-weight: 850;
   letter-spacing: 0;
   overflow: hidden;
@@ -423,14 +429,15 @@ body {
   justify-content: center;
   overflow: hidden;
   color: var(--gray-9);
-  background: var(--monitor-panel-strong);
+  background: transparent;
+  box-shadow: 0 6px 16px color-mix(in srgb, #22d3ee 10%, transparent);
 }
 
 .site-logo-preview img {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* ========== Public Dashboard ========== */
@@ -1918,11 +1925,20 @@ html[data-monitor-theme='next'] .node-network-value strong {
   width: 76px;
   height: 76px;
   border-radius: 20px;
-  background: linear-gradient(135deg, var(--accent-9), var(--accent-10));
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
+  overflow: hidden;
+  box-shadow: 0 10px 24px color-mix(in srgb, #22d3ee 12%, transparent);
+}
+
+.admin-about-logo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .admin-about-stack-item,
@@ -4220,19 +4236,19 @@ html[data-monitor-theme='next'] .node-network-value strong {
   width: 64px;
   height: 64px;
   border-radius: 16px;
-  background: linear-gradient(135deg, var(--monitor-accent), var(--monitor-secondary));
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 24px color-mix(in srgb, #22d3ee 12%, transparent);
 }
 
 .login-logo img {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .db-init-card {
