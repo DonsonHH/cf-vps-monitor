@@ -130,7 +130,7 @@ export default function Layout() {
           <div className="nav-brand">
             <Link to="/" className="nav-brand-link">
               <span className="nav-logo-mark" aria-hidden="true">
-                <img src={siteLogoUrl || "/app-icon.png"} alt="" />
+                <img src={siteLogoUrl || "/assets/brand/donson-signal.svg"} alt="" />
               </span>
               <span className="nav-brand-copy">
                 <span className="nav-brand-eyebrow">DONSON / OBSERVABILITY</span>

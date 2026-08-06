@@ -229,7 +229,7 @@ export default function SettingsSite() {
           </Text>
           <Flex align="center" gap="3" wrap="wrap">
             <Box className="site-logo-preview">
-              <img src={settings.site_logo_url || '/app-icon.png'} alt="" />
+              <img src={settings.site_logo_url || '/assets/brand/donson-signal.svg'} alt="" />
             </Box>
             <Flex gap="2" wrap="wrap">
               <input

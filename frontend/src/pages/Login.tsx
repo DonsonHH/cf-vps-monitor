@@ -192,7 +192,7 @@ export default function Login() {
       <Card className="login-card" style={{ padding: '36px 32px' }}>
         <Flex direction="column" align="center" gap="2" mb="5">
           <Box className="login-logo">
-            <img src={siteLogoUrl || '/app-icon.png'} alt="" />
+            <img src={siteLogoUrl || '/assets/brand/donson-signal.svg'} alt="" />
           </Box>
           <Heading size="6" style={{ fontSize: '1.5rem', letterSpacing: '-0.02em', fontWeight: 700 }}>
             CF VPS Monitor

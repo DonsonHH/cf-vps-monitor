@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Donson Signal</title>
+  <desc id="desc">A protected infrastructure node inside a D-shaped signal orbit.</desc>
+  <defs>
+    <linearGradient id="signal" x1="22" y1="18" x2="106" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67e8f9"/>
+      <stop offset=".56" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+    <linearGradient id="core" x1="45" y1="40" x2="84" y2="88" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ecfeff"/>
+      <stop offset="1" stop-color="#a5f3fc"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="116" height="116" rx="30" fill="#0b172a"/>
+  <rect x="7.5" y="7.5" width="113" height="113" rx="28.5" fill="none" stroke="#67e8f9" stroke-opacity=".2" stroke-width="3"/>
+  <path d="M37 28v72" fill="none" stroke="url(#signal)" stroke-linecap="round" stroke-width="10"/>
+  <path d="M39 28h19.5A36.5 36.5 0 0 1 95 64a36.5 36.5 0 0 1-36.5 36H39" fill="none" stroke="url(#signal)" stroke-linecap="round" stroke-width="10"/>
+  <path d="M52 64c0-6.6 5.4-12 12-12s12 5.4 12 12-5.4 12-12 12-12-5.4-12-12Z" fill="#071827" stroke="url(#core)" stroke-width="4"/>
+  <circle cx="64" cy="64" r="4" fill="#ecfeff"/>
+  <circle cx="99" cy="42" r="5" fill="#67e8f9"/>
+  <circle cx="100" cy="91" r="5" fill="#34d399"/>
+  <path d="m87 49 8-5M88 80l8 7" fill="none" stroke="#a5f3fc" stroke-linecap="round" stroke-width="3" stroke-opacity=".8"/>
+</svg>
