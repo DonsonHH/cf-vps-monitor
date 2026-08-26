@@ -172,7 +172,7 @@ function ExpandedNodeDetails({
               value={`↑ ${formatSpeed(live?.net_out || 0)} ↓ ${formatSpeed(live?.net_in || 0)}`}
             />
             <DetailRow
-              label="总流量"
+              label="本周期流量"
               value={`↑ ${formatBytes(live?.net_total_up || 0)} ↓ ${formatBytes(live?.net_total_down || 0)}`}
             />
             <DetailRow label="IPv4" value={formatSupport(node.has_ipv4, node.ipv4)} />
@@ -284,10 +284,12 @@ export default function NodeTable({ nodes, liveData, includeHidden = false }: No
     column: SortKey;
     children: React.ReactNode;
     style?: React.CSSProperties;
+    title?: string;
   }) => (
     <Table.ColumnHeaderCell
       style={{ cursor: 'pointer', whiteSpace: 'nowrap', ...style }}
       onClick={() => handleSort(column)}
+      title={title}
     >
       <Flex align="center" gap="1">
         {children}
@@ -315,7 +317,13 @@ export default function NodeTable({ nodes, liveData, includeHidden = false }: No
             <SortHeader column="disk" style={{ width: 118 }}>硬盘</SortHeader>
             <SortHeader column="network" style={{ width: 142 }}>网络</SortHeader>
             <SortHeader column="price" style={{ width: 108 }}>价格</SortHeader>
-            <SortHeader column="traffic" style={{ width: 166 }}>流量</SortHeader>
+            <SortHeader
+              column="traffic"
+              style={{ width: 166 }}
+              title="本周期流量，按 Agent 设置的流量重置日累计"
+            >
+              本期流量
+            </SortHeader>
           </Table.Row>
         </Table.Header>
 

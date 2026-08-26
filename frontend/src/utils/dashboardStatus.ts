@@ -49,9 +49,9 @@ export function buildDashboardStatusCards(input: DashboardStatusInput): Dashboar
     },
     {
       key: 'trafficOverview',
-      title: '流量概览',
+      title: '本期流量',
       value: trafficValues.join('  '),
-      detail: '累计上传 / 下载',
+      detail: '按流量重置日累计',
       inlineValues: trafficValues,
       oneLine: true,
     },

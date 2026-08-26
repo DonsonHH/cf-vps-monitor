@@ -164,7 +164,7 @@ function NetworkSummary({
       <div className="node-network-summary-row" data-monitor-role="network-traffic-summary">
         <Text className="node-network-summary-label" size="1" weight="bold">
           <BarChart3 size={14} />
-          总流量
+          本周期流量
         </Text>
         <div className="node-network-summary-values">
           <span className="node-network-value is-up">
