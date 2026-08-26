@@ -280,6 +280,7 @@ export default function NodeTable({ nodes, liveData, includeHidden = false }: No
     column,
     children,
     style,
+    title,
   }: {
     column: SortKey;
     children: React.ReactNode;
