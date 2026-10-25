@@ -1685,11 +1685,15 @@ adminRoutes.post('/clients/reorder', async (c) => {
     const updated = existingUuids.length > 0 ? await db.reorderClients(database, existingUuids) : 0;
     if (updated > 0) {
       const refreshedClients = (await listAdminClientsCached(database, true)).map(hideAdminClientToken);
+      const refreshedByUuid = new Map(refreshedClients.map(client => [client.uuid, client]));
       await writeAdminClientsSnapshot(c, refreshedClients);
       await Promise.all([
         purgeAdminClientsEdgeCache(c),
         broadcastLiveMetadataChanged(c, {
-          clients: { upsert: existingUuids.map((uuid, index) => ({ uuid, sort_order: index + 1 })) },
+          clients: { upsert: existingUuids.flatMap((uuid, index) => {
+            const client = refreshedByUuid.get(uuid);
+            return client ? [{ uuid, sort_order: index + 1, hidden: client.hidden }] : [];
+          }) },
         }),
       ]);
     }

@@ -688,7 +688,7 @@ export class LiveDataDO {
 
     const client = { uuid: clientId, name: clientName || clientId, hidden, ...patch };
     await this.upsertAdminClientSnapshot(client);
-    this.broadcastMetadataChanged({ clients: { upsert: [this.publicClientMetadata(client)] } });
+    this.broadcastMetadataChanged({ clients: { upsert: [client] } });
 
     const database = this.getQueryDatabase();
     if (!database) return;
@@ -1059,12 +1059,40 @@ export class LiveDataDO {
     }
   }
 
+  private metadataForViewer(detail: JsonObject, includeHidden: boolean): JsonObject {
+    if (!isObjectPayload(detail.clients)) return detail;
+    const patch = detail.clients;
+    const clients: JsonObject = {};
+    const remove = new Set(Array.isArray(patch.remove)
+      ? patch.remove.filter((uuid): uuid is string => typeof uuid === 'string' && uuid.trim() !== '')
+      : []);
+    if (Array.isArray(patch.upsert)) {
+      clients.upsert = patch.upsert.filter(isObjectPayload).flatMap(raw => {
+        const client = this.sanitizeAdminClientSnapshotItem(raw);
+        if (!client) return [];
+        if (includeHidden) return [client];
+        const uuid = String(client.uuid);
+        const hidden = Object.hasOwn(client, 'hidden')
+          ? booleanField(client, 'hidden')
+          : this.clients.get(uuid)?.hidden;
+        if (hidden === true) remove.add(uuid);
+        // Partial offline patches must declare visibility rather than creating
+        // a public record whose authorization is unknown.
+        return hidden === false ? [this.publicClientMetadata(client)] : [];
+      });
+    }
+    if (remove.size > 0 || Array.isArray(patch.remove)) clients.remove = [...remove];
+    return { ...detail, clients };
+  }
+
   private broadcastMetadataChanged(detail: JsonObject = {}, audience: 'all' | 'public' | 'admin' = 'all') {
-    this.broadcastToViewers({
-      type: 'metadata_changed',
-      ...detail,
-      timestamp: Date.now(),
-    }, audience);
+    const timestamp = Date.now();
+    if (audience !== 'public') {
+      this.broadcastToViewers({ ...this.metadataForViewer(detail, true), type: 'metadata_changed', timestamp }, 'admin');
+    }
+    if (audience !== 'admin') {
+      this.broadcastToViewers({ ...this.metadataForViewer(detail, false), type: 'metadata_changed', timestamp }, 'public');
+    }
   }
 
   private countViewers(viewerIp?: string): { total: number; sameIp: number } {
@@ -1263,12 +1291,7 @@ export class LiveDataDO {
       ? meta.client
       : { uuid, name: current?.name || uuid, hidden: booleanField(meta, 'hidden') };
     await this.upsertAdminClientSnapshot(client);
-    const broadcastClient = this.publicClientMetadata(client);
-    this.broadcastMetadataChanged({
-      clients: booleanField(meta, 'hidden')
-        ? { upsert: [broadcastClient], remove: [uuid] }
-        : { upsert: [broadcastClient] },
-    });
+    this.broadcastMetadataChanged({ clients: { upsert: [client] } });
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { 'Content-Type': 'application/json' },
@@ -1328,9 +1351,8 @@ export class LiveDataDO {
       if (typeof value === 'string' && value.trim() !== '' && !isPublicIpAddress(value)) {
         safe[field] = '';
       }
+      if (Object.hasOwn(safe, field)) safe[`has_${field}`] = isPublicIpAddress(String(safe[field] || ''));
     }
-    safe.has_ipv4 = isPublicIpAddress(String(safe.ipv4 || ''));
-    safe.has_ipv6 = isPublicIpAddress(String(safe.ipv6 || ''));
     return { ...safe, uuid };
   }
 
@@ -1532,10 +1554,7 @@ export class LiveDataDO {
       await db.updateClient(database, clientId, patch as Partial<db.Client>);
       const clientPatch: JsonObject = { uuid: clientId, name: clientName || clientId, hidden, ...patch };
       await this.upsertAdminClientSnapshot(clientPatch);
-      const broadcastPatch = this.publicClientMetadata(clientPatch);
-      this.broadcastMetadataChanged({
-        clients: hidden ? { upsert: [broadcastPatch], remove: [clientId] } : { upsert: [broadcastPatch] },
-      });
+      this.broadcastMetadataChanged({ clients: { upsert: [clientPatch] } });
     } catch {
       // Basic info is refreshed periodically; keep live reporting independent.
     }
