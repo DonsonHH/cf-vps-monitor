@@ -1,1 +1,3 @@
 *.sh text eol=lf
+# Wrangler compares its runtime header literally, including the line ending.
+worker/worker-configuration.d.ts text eol=lf

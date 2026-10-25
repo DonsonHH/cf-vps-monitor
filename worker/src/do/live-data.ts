@@ -18,6 +18,7 @@ import {
 } from '../settings/schema';
 import { bestEffortRecordHealthEvent, errorDetail } from '../utils/observability';
 import { isPublicIpAddress } from '../utils/request-ip';
+import { withoutPrivateClientFields } from '../utils/public-client';
 import { unwrapMonitorReportEnvelope } from '../utils/report-envelope';
 import { checkWebsiteMonitorHttp } from '../utils/website-monitor';
 
@@ -1335,7 +1336,7 @@ export class LiveDataDO {
 
   private publicClientMetadata(client: JsonObject): JsonObject {
     const safe = this.sanitizeAdminClientSnapshotItem(client);
-    const broadcastClient: JsonObject = safe ? { ...safe } : {};
+    const broadcastClient: JsonObject = withoutPrivateClientFields(safe || {});
     delete broadcastClient.ipv4;
     delete broadcastClient.ipv6;
     return broadcastClient;

@@ -7,10 +7,19 @@ export type PublicClient = Omit<PublicClientRow, 'ipv4' | 'ipv6'> & {
   tags: string;
 };
 
-type PublicClientSource = PublicClientRow & {
-  token?: unknown;
-  remark?: unknown;
-};
+const PRIVATE_CLIENT_FIELDS = [
+  'token', 'token_hash', 'token_last_used_at', 'token_last_used_ip', 'token_rotated_at', 'remark',
+] as const;
+type PrivateClientField = typeof PRIVATE_CLIENT_FIELDS[number];
+type PublicClientSource = PublicClientRow & Partial<Record<PrivateClientField, unknown>>;
+
+// A TypeScript Omit does not remove fields from database rows or DO overlays.
+// Both HTTP metadata and WebSocket metadata need the same runtime projection.
+export function withoutPrivateClientFields<T extends object>(client: T): Omit<T, PrivateClientField> {
+  const safe = { ...client };
+  for (const field of PRIVATE_CLIENT_FIELDS) delete (safe as Record<string, unknown>)[field];
+  return safe;
+}
 
 function isPublicTag(tag: string): boolean {
   const text = tag.replace(/<\w+>$/, '').trim().toLowerCase();
@@ -29,12 +38,10 @@ export function sanitizePublicTags(tags: unknown): string {
 
 export function toPublicClient(client: PublicClientSource): PublicClient {
   const {
-    token: _token,
     ipv4,
     ipv6,
-    remark: _remark,
     ...publicClient
-  } = client;
+  } = withoutPrivateClientFields(client);
   return {
     ...publicClient,
     has_ipv4: typeof ipv4 === 'string' && isPublicIpAddress(ipv4),

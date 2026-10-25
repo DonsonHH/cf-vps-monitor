@@ -10,6 +10,8 @@ assert.deepEqual(migrationFiles, [
   '3_feature_schema.sql',
   '4_rpc_api.sql',
   '5_runtime_defaults.sql',
+  '6_donson_defaults.sql',
+  '7_service_role_access.sql',
 ]);
 assert.deepEqual(BUNDLED_SUPABASE_MIGRATIONS.map(({ version }) => version), [
   '1_core_schema',
@@ -17,6 +19,8 @@ assert.deepEqual(BUNDLED_SUPABASE_MIGRATIONS.map(({ version }) => version), [
   '3_feature_schema',
   '4_rpc_api',
   '5_runtime_defaults',
+  '6_donson_defaults',
+  '7_service_role_access',
 ]);
 
 const featureSchemaSql = await readFile(new URL('3_feature_schema.sql', migrationsUrl), 'utf8');
